@@ -21,6 +21,13 @@ public class PuntoService
 		this.puntoRepository = puntoRepository;
 	}
 
+	public List<Punto> findAll2()
+	{
+		Pageable paging = PageRequest.of(1, 10);
+		Page<Punto> lista = this.puntoRepository.findAll(paging);
+		return lista.toList();
+	}
+
 	public List<Punto> findAll(Integer pageNo, Integer pageSize)
 	{
 		Pageable paging = PageRequest.of(pageNo, pageSize);
