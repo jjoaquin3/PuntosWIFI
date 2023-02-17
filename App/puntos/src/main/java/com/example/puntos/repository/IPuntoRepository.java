@@ -16,7 +16,7 @@ import com.example.puntos.model.Punto;
 public interface IPuntoRepository extends PagingAndSortingRepository<Punto, Long>
 {
 	Page<Punto> findAll(Pageable pageable);
-
+	
 	List<Punto> findById(String id);
 
 	Page<Punto> findByColonia(String colonia, Pageable pageable);
