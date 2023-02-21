@@ -69,7 +69,7 @@ A nivel de API el diseño es:
 
 Limpiemos la información con Pentaho Data Integration
 
-Nuestro JOB es sencillo, inicio, carmgo la transformacion y si todo bien marcomo como completo si no a error.
+Nuestro JOB es sencillo, inicio, cargo la transformacion y si todo bien marcar como como completo si no a error.
 
 ![4](https://user-images.githubusercontent.com/12112344/220413957-f604b8fc-3140-4620-8729-a9a97253ed7d.png)
 
@@ -237,6 +237,20 @@ public List<Punto> findByLatitudAndLongitudFP(Double latitud, Double longitud, I
 
 
 ### GraphQL <a name="graphql"></a>
+
+Las dependencias en el pom.xml
+
+``` xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-graphql</artifactId>
+</dependency>
+<dependency>
+	<groupId>org.springframework.graphql</groupId>
+	<artifactId>spring-graphql-test</artifactId>
+	<scope>test</scope>
+</dependency>
+```
 
 Necesitamos crear un schema en nuestro directorio "~/resources/graphql" con extension gqls, yo creo este "Schema.gqls"
 
