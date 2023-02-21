@@ -12,17 +12,30 @@ import org.springframework.stereotype.Repository;
 import com.example.puntos.model.IPuntoDTO;
 import com.example.puntos.model.Punto;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+
 @Repository
 public interface IPuntoRepository extends PagingAndSortingRepository<Punto, Long>
 {
-	Page<Punto> findAll(Pageable pageable);
+	@Operation(summary = "Obtener todos los Puntos WIFI")
+	@Parameter(description = "Pagina sobre la cual se vaciará la información creada en la capa de servicio", name = "pageable", required = true)
+	Page<Punto> findAll(Pageable pageable);	
 	
+	@Operation(summary = "Obtener todos los Puntos WIFI de una Colonia especifica")
+	@Parameter(name = "id", description = "\"id\" que sirve de filtro",required = true)
+	@Parameter(name = "pageable", description = "Pagina sobre la cual se vaciará la información creada en la capa de servicio", required = true)
 	List<Punto> findById(String id);
 
+	@Operation(summary = "Obtener todos los Puntos WIFI de una Colonia especifica")
+	@Parameter(name = "colonia", description = "Colonia que sirve de filtro",required = true)
+	@Parameter(name = "pageable", description = "Pagina sobre la cual se vaciará la información creada en la capa de servicio", required = true)
 	Page<Punto> findByColonia(String colonia, Pageable pageable);
 
-	//	Page<Punto> findByLatitudAndLongitud(Double latitud, Double longitud, Pageable pageable);
-
+	@Operation(summary = "Obtener todos los Puntos WIFI ordenado de menor a mayor distancia dada la latitud y longitud")
+	@Parameter(name = "latitud", description = "Latitud filtro X",required = true)
+	@Parameter(name = "longitud", description = "Longitud filtro Y",required = true)
+	@Parameter(description = "Pagina sobre la cual se vaciará la información creada en la capa de servicio", name = "pageable", required = true)
 	@Query(value = "SELECT  "
 			+ "	SQRT(sub.x*sub.x + sub.y*sub.y) distancia "
 			+ "	,sub.dbid "
@@ -36,8 +49,8 @@ public interface IPuntoRepository extends PagingAndSortingRepository<Punto, Long
 			+ "FROM "
 			+ "( "
 			+ "	SELECT  "
-			+ "	:latitud - pto.latitud  x "
-			+ "	,:longitud - pto.longitud  y	 "
+			+ "	pto.latitud - :latitud  x "
+			+ "	,pto.longitud - :longitud y	 "
 			+ "	,pto.dbid "
 			+ "	,pto.alcaldia "
 			+ "	,pto.colonia "

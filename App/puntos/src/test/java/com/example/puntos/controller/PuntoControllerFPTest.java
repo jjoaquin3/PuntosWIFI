@@ -11,20 +11,17 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.projection.ProjectionFactory;
-import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 
-import com.example.puntos.model.IPuntoDTO;
 import com.example.puntos.model.Punto;
 import com.example.puntos.service.PuntoService;
 
-class PuntoControllerTest
+class PuntoControllerFPTest
 {
 	@Mock
 	private PuntoService puntoService;
 
 	@InjectMocks
-	private PuntoController puntoController;
+	private PuntoControllerFP puntoController;
 
 	private Punto punto;
 
@@ -37,54 +34,50 @@ class PuntoControllerTest
 	}
 
 	@Test
-	public void FindAll()
+	public void FindAllFP()
 	{
 		// public ResponseEntity<List<Punto>>
 		List<Punto> lista = new ArrayList<Punto>();
 		lista.add(punto);
-		when(puntoService.findAll(1, 10)).thenReturn(lista);
+		when(puntoService.findAllFP(1, 10)).thenReturn(lista);
 
 		// Test
-		List<Punto> resultTest = puntoController.findAll(1, 10);
+		List<Punto> resultTest = puntoController.findAllFP(1, 10);
 		assertThat(resultTest.size()).isGreaterThanOrEqualTo(1);
 	}
 
 	@Test
-	public void FindByID()
+	public void FindByIDFP()
 	{
-		when(puntoService.findById("2L")).thenReturn(punto);
+		when(puntoService.findByIdFP("2L")).thenReturn(punto);
 
 		// Test
-		Punto resultTest = puntoController.findById("2L");
+		Punto resultTest = puntoController.findByIdFP("2L");
 		assertThat(resultTest.getId().equals("EL ID"));
 	}
 
 	@Test
-	public void findByColonia()
+	public void findByColoniaFP()
 	{
 		List<Punto> lista = new ArrayList<Punto>();
 		lista.add(punto);
-		when(puntoService.findByColonia("COL", 1, 10)).thenReturn(lista);
+		when(puntoService.findByColoniaFP("COL", 1, 10)).thenReturn(lista);
 
 		// Test
-		List<Punto> resultTest = puntoController.findByColonia("COL", 1, 10);
+		List<Punto> resultTest = puntoController.findByColoniaFP("COL", 1, 10);
 		assertThat(resultTest.size()).isGreaterThanOrEqualTo(1);
 	}
 
-	
 	@Test
-	public void findByLatitudAndLongitud()
+	public void findByLatitudAndLongitudFP()
 	{
-		List<IPuntoDTO> lista = new ArrayList<IPuntoDTO>();
-		
-		ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
-		IPuntoDTO projection = factory.createProjection(IPuntoDTO.class);		
-		lista.add(projection);
-		when(puntoService.findByLatitudAndLongitud(1.001, 1.002, 1, 10)).thenReturn(lista);
-	
+		List<Punto> lista = new ArrayList<Punto>();
+		lista.add(punto);
+		when(puntoService.findByLatitudAndLongitudFP(1.001, 2.002, 1, 10)).thenReturn(lista);
+
 		// Test
-		List<IPuntoDTO> resultTest = puntoController.findByLatitudAndLongitud(1.001, 2.002, 1, 10);
-		assertThat(resultTest.size()).isGreaterThanOrEqualTo(0);
+		List<Punto> resultTest = puntoController.findByLatitudAndLongitudFP(1.001, 2.002, 1, 10);
+		assertThat(resultTest.size()).isGreaterThanOrEqualTo(1);
 	}
 
 }

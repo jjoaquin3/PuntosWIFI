@@ -1,0 +1,30 @@
+schema
+{
+	query:Query
+}
+
+type Query 
+{
+	puntosFindAll(page: Int = 0, size: Int = 10): [Punto]
+	puntosFindById(id: String): [Punto]
+	puntosFindByColonia(colonia: String, page: Int = 0, size: Int = 10): [Punto]
+	puntosFindByLatitudAndLongitud(latitud: Float, longitud: Float, page: Int = 0, size: Int = 10): [Punto]
+   
+	puntosFindAllFP(page: Int = 0, size: Int = 10): [Punto]
+	puntosFindByIdFP(id: String): [Punto]
+	puntosFindByColoniaFP(colonia: String, page: Int = 0, size: Int = 10): [Punto]
+	puntosFindByLatitudAndLongitudFP(latitud: Float, longitud: Float, page: Int = 0, size: Int = 10): [Punto]
+}
+
+type Punto
+{
+	dbid: ID!
+	id: String	
+	programa: String
+	fecha_instalacion: String
+	latitud: Float
+	longitud: Float
+	colonia: String
+	alcaldia: String
+	distancia: Float
+}
