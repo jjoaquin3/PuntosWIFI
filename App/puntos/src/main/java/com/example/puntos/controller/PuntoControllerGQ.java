@@ -1,5 +1,7 @@
 package com.example.puntos.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -37,9 +39,9 @@ public class PuntoControllerGQ
 	@Operation(summary = "Obtiene determinado punto WIFI a traves de parametro")
 	@Parameter(name = "id", example = "123", required = true)
 	@QueryMapping
-	public Punto puntosFindById(@Argument String id)
-	{
-		return puntoService.findById(id);
+	public List<Punto> puntosFindById(@Argument String id)
+	{		
+		return new ArrayList<>(Arrays.asList((puntoService.findById(id))));
 	}
 
 	@Operation(summary = "Obtiene lista paginada de puntos WIFI a traves de Colonia especifica")
@@ -79,9 +81,9 @@ public class PuntoControllerGQ
 	@Operation(summary = "Obtiene determinado punto WIFI a traves de parametro con programación funcional")
 	@Parameter(name = "id", example = "123", required = true)
 	@QueryMapping
-	public Punto puntosFindByIdFP(@Argument String id)
+	public List<Punto> puntosFindByIdFP(@Argument String id)
 	{
-		return puntoService.findByIdFP(id);
+		return new ArrayList<>(Arrays.asList((puntoService.findByIdFP(id))));
 	}
 
 	@Operation(summary = "Obtiene lista paginada de puntos WIFI a traves de Colonia especifica  con programación funcional")

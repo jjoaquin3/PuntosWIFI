@@ -22,7 +22,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/puntosfp")
 @CrossOrigin(origins = "*")
-@Tag(name = "Puntos WIFI by Programación Funcional", description = "Controlador para operaciones a traves de programación funcional sobre puntos WIFI en Ciuda de Mexico")
+@Tag(
+		name = "Puntos WIFI by Programación Funcional",
+		description = "Controlador para operaciones a traves de programación funcional sobre puntos WIFI en Ciuda de Mexico")
 public class PuntoControllerFP
 {
 	private final PuntoService puntoService;
