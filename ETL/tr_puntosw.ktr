@@ -442,8 +442,8 @@
     <access>Native</access>
     <database>PUNTOSW</database>
     <port>5432</port>
-    <username>compose-postgres</username>
-    <password>Encrypted 2ddf7c2b805d497c9bb16bd64d980aac9</password>
+    <username>postgres</username>
+    <password>Encrypted 2d3e1dcad09d59790bb18bd63c99dbdde</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>

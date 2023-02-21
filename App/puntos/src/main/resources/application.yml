@@ -9,13 +9,12 @@ spring:
   jpa:
     show-sql: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
       
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl        
     
-  datasource:   
-# url: jdbc:mariadb://127.0.0.1:3306/PUNTOSW
+  datasource:
     url: jdbc:postgresql://127.0.0.1:5432/PUNTOSW
     username: postgres
     password: mysecretpassword    
@@ -26,6 +25,6 @@ spring:
     schema:
       printer:
         enabled: true
-    
+
 server:  
   port: 8080
