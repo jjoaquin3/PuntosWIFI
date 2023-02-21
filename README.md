@@ -59,8 +59,7 @@ La solucion general:
 
 A nivel de API el diseño es:
 
-
-![2  API](https://user-images.githubusercontent.com/12112344/220410369-a03405c2-9d60-4e30-9e67-dd2a96e525cc.png)
+![2 1  API](https://user-images.githubusercontent.com/12112344/220455993-a7896787-b83f-472e-8a4d-7d093fbdf5f3.png)
 
 
 ## Desarrollo  <a name="desarrollo"></a>
