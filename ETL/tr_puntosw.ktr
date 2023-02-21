@@ -616,8 +616,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>144</xloc>
-      <yloc>320</yloc>
+      <xloc>224</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -712,8 +712,8 @@ longitudf = longitud.replace(/\s/g, '')
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>320</yloc>
+      <xloc>560</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -940,8 +940,8 @@ longitudf = longitud.replace(/\s/g, '')
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
-      <yloc>320</yloc>
+      <xloc>864</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1012,8 +1012,8 @@ longitudf = longitud.replace(/\s/g, '')
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1040</xloc>
-      <yloc>320</yloc>
+      <xloc>1120</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
