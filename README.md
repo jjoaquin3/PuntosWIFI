@@ -1,7 +1,7 @@
 # PuntosWIFI
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-Pipeline de análisis de datos utilizando los datos abiertos de la Ciudad de México correspondientes a las Puntos de acceso WiFi en la Ciudad de México para que pueda ser consultado mediante un API Rest.
+Pipeline de análisis de datos utilizando los datos abiertos, correspondientes a las Puntos de acceso WiFi en la Ciudad de México para que pueda ser consultado mediante un API Rest.
 
 ## Indice
 
@@ -12,27 +12,29 @@ Pipeline de análisis de datos utilizando los datos abiertos de la Ciudad de Mé
     - [API](#api)
     - [Programación Funcional](#pf)
     - [GraphQL](#graphql)
-    - [OpenAPi Spring DOC](#doc)
+    - [OpenAPi Spring Doc](#doc)
     - [Pruebas Unitarias](#pruebas)
     - [Docker](#docker)
 - [Uso/Ejemplos](#uso-ejemplos)
 
+
 ## Introducción <a name="introduccion"></a>
 
-El proyecto nace como un forma de demostrar la capacidades de elegir un stack tecnológico, la organización y bien implementar una solución para la obtenciónd de información.
+El proyecto nace como un forma de demostrar la capacidades de elegir un stack tecnológico, la organización y bien implementar una solución para la obtención de información.
 
 La información que alimenta la DB se encuentra en [Puntos de acceso WIFI Ciudad de México](https://datos.cdmx.gob.mx/dataset/puntos-de-acceso-wifi-en-la-ciudad-de-mexico).
 
 - Se tiene un conjunto de datos los cuales se deben limpiar siendo esto la primera etapa, un ETL
-- Un API con diversas funciones para consulta la información alamacenada con el uso de Spring Boot ✨✨✨
+- Un API con diversas funciones para consulta la información almacenada, con el uso de Spring Boot ✨✨✨
   - Consultas REST
   - Consultas REST con logica creadas a traves de Programación Funcional
   - Consultas GraphQL
   - Consultas GraphQL con logica creadas a traves de Programación Funcional
-- La DB se empaqueta en un contender
-- La API se empaqueta en un contender
+- La DB se empaqueta en un contenedor
+- La API se empaqueta en un contenedor
 - Prubas Unitarias en las capas de controladores y servicios
 - Archivos dockercompose y dockerfile para el empaquetado de la API y DB
+
 
 ## Ambiente <a name="ambiente"></a>
 
@@ -51,6 +53,7 @@ La información que alimenta la DB se encuentra en [Puntos de acceso WIFI Ciudad
 
 Estos serian los principales, las otras libreria como Mocketio, JUnit, entro otros, se pueden encontrar en pom.xml del API
 
+
 ## Diseño <a name="disenio"></a>
 
 La solucion general:
@@ -59,7 +62,7 @@ La solucion general:
 
 A nivel de API el diseño es:
 
-![2 1  API](https://user-images.githubusercontent.com/12112344/220455993-a7896787-b83f-472e-8a4d-7d093fbdf5f3.png)
+![2  API](https://user-images.githubusercontent.com/12112344/220814619-8b092cb2-ba3c-494b-b9ca-9f3473eeb9fd.png)
 
 
 ## Desarrollo  <a name="desarrollo"></a>
@@ -68,10 +71,9 @@ A nivel de API el diseño es:
 
 Limpiemos la información con Pentaho Data Integration
 
-Nuestro JOB es sencillo, inicio, cargo la transformacion y si todo bien marcar como como completo si no a error.
+Nuestro JOB es sencillo, inicio, cargo la transformacion y si todo bien marcar como completo si no a error.
 
 ![4](https://user-images.githubusercontent.com/12112344/220413957-f604b8fc-3140-4620-8729-a9a97253ed7d.png)
-
 
 Ahora con nuestra transformación
 
@@ -89,16 +91,16 @@ No será muy largo, pero empecemos por la estructura:
 
 ![3  layers](https://user-images.githubusercontent.com/12112344/220411902-7b8d96cf-59a7-4ee3-bd4b-012f2bd46f64.png)
 
-
-1. Controller: como el endpoint para hacer que nuestras funciones sean visibles al exterior
+1. Controller: para hacer que nuestras funciones sean visibles al exterior
 2. Service: la logica del negocio
 3. Respository: el ente que nos permite manipular los modelos y accesar a la DB
 4. Model: la representacion de las entidades en la DB, Modelo Punto y 2 archvios DTO para 1 Proyeccion JPA y el otro como auxiliar para calculo, no es necesario estos, pero estan para ejemplificar las diferentes formas de operar o realizar una solucion.
 
+
 ### Modelo 
 
 Usemos Lombok para ahorrar codigo
-Tambien anotacion de Open API
+Tambien anotaciones de Open API
 
 ``` java
 @AllArgsConstructor
@@ -119,7 +121,7 @@ public class Punto
 
 ### Repository
 
-Hagamos uso de page and sorting para la paginacion, ojo aca que en el service layer tambien esta como hacerlo medianto programacion funcional
+Hagamos uso de page and sorting para la paginacion, ojo aca que en la capa de servicio tambien esta como hacerlo medianto programacion funcional
 
 ``` java
 @Repository
@@ -199,7 +201,7 @@ public class PuntoController
 
 Nos ubicamos en nuestro achivo de service "PuntoService":
 
-Con el uso de labmdas y streasm podemos acceder a las colecciones, luego a traves de parametros hacemos los filtrados:
+Con el uso de lambda y streams podemos acceder a las colecciones, luego a traves de parametros hacemos los filtrados:
 
 Un retorno de toda la informacion limitada por pagina y tamaño:
 
@@ -251,7 +253,7 @@ Las dependencias en el pom.xml
 </dependency>
 ```
 
-Necesitamos crear un schema en nuestro directorio "~/resources/graphql" con extension gqls, yo creo este "Schema.gqls"
+Necesitamos crear un schema en nuestro directorio "~/resources/graphql" con extension gqls, yo creo este "Schema.gqls", he aqui tengo un error wajaja pero os  dejo que lo buscais
 
 ```
 schema
@@ -286,10 +288,9 @@ type Punto
 }
 ```
 
-Donde type Query, se establecen los metodos GraphQL, los parametros (nombre: TIPO [= val]) y luego el retorno, en estos los que terminan con FP son los que hacen uso de las funciones credas con Programacion Funcional
+Donde type Query, se establecen las funciones GraphQL, los parametros *(nombre: TIPO [= val])* y luego el retorno, en estos los que terminan con FP son los que hacen uso de las funciones credas con Programacion Funcional
 
-Hacer en endpoint para permitir consultar nuestros servicios
-
+Hacer el controlador para permitir consultar nuestros servicios
 
 ![Captura de pantalla 2023-02-21 113600](https://user-images.githubusercontent.com/12112344/220418903-9f181cbc-e736-47e2-aef9-576f9d50c132.png)
 
@@ -299,7 +300,7 @@ Donde vemos las anotaciones
 - @Argument: para indicar el argumento indicado en el apartado de "type query" en nuestro "Schema.gqls"
 
 
-### OpenAPi Spring DOC <a name="doc"></a>
+### OpenAPi Spring Doc <a name="doc"></a>
 
 En nuestro pom.xml importamos
 
@@ -330,6 +331,7 @@ y nos da esto, si ingresamos a la ruta http://localhost:8080/swagger-ui/index.ht
 ![8](https://user-images.githubusercontent.com/12112344/220420102-7f6c997d-046f-4fea-abc7-cbe1c8342c3c.png)
 
 Para ello las anotaciones respectivas estan en https://springdoc.org/
+
 
 ### Pruebas Unitarias <a name="pruebas"></a>
 
@@ -371,6 +373,7 @@ class PuntoServiceTest
 ```
 
 Probando nuestras funciones de la capa de controlador para los realizados con programacion funcional en la capa de servicio
+
 ``` java
 class PuntoControllerFPTest
 {
@@ -543,7 +546,7 @@ query
 ![15](https://user-images.githubusercontent.com/12112344/220425680-acbc3d32-27ad-46d0-aebb-ba54a3997ac6.png)
 
 
-5. Graph UI
+6. Graph UI
 > http://localhost:8080/graphiql
 
 ![16](https://user-images.githubusercontent.com/12112344/220425692-e981700a-ee0f-4afe-92db-d43631f6c3d9.png)
