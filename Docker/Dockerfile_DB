@@ -1,0 +1,6 @@
+# Dockerfile_DB, utilizar ultima imagen de postgres
+FROM postgres:latest
+
+# Copiar el DUMP
+COPY dump-PUNTOSW.sql /docker-entrypoint-initdb.d/
+

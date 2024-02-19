@@ -514,7 +514,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>C:\Users\Joaquin\Desktop\Puntos\Resources\puntos_de_acceso_wifi.csv</filename>
+    <filename>C:\Users\jjoaq\Desktop\Puntos\Resources\puntos_de_acceso_wifi.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
