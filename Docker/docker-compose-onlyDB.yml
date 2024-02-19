@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  db:
+    image: 'postgres'
+    container_name: puntos_db
+    build:
+      context: .
+      dockerfile: Dockerfile_DB    
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - 5432:5432

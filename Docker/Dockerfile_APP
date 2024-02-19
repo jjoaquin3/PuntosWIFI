@@ -1,0 +1,11 @@
+# Dockerfile_APP, utilizar temurin con la versión utilizada para el API rest
+FROM eclipse-temurin:17.0.6_10-jdk-alpine
+
+# Ajusta la ruta al archivo JAR relativa al contexto de construcción que seria `raiz/` del proyecto
+# ARG JAR_FILE=target/*.jar
+ARG JAR_FILE=App/puntos/target/*.jar
+
+# Copia el archivo JAR al contenedor
+COPY ${JAR_FILE} puntos-1.0.0.jar
+
+ENTRYPOINT ["java","-jar","/puntos-1.0.0.jar"]
