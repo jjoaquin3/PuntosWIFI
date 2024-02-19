@@ -410,34 +410,62 @@ Corrieron UWU
 
 ### Docker <a name="docker"></a>
 
-Creamos en la raiz de nuestro proyecto 2 archivos:
+Creamos en la raiz de nuestro proyecto con los archivos:
 
-Dockerfile
+.env
 ``` sh
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=mysecretpassword
+POSTGRES_DB=PUNTOSW
+```
+El cual incluye variables de entorno que nos serviran para configuraciónes en los archivos siguientes.
+
+
+Dockerfile_DB
+``` sh
+# Dockerfile_DB, utilizar ultima imagen de postgres
+FROM postgres:latest
+
+# Copiar el DUMP
+COPY dump-PUNTOSW.sql /docker-entrypoint-initdb.d/
+```
+Se ajusta que cargue el dump de la DATABASE por defecto, el cual creara el esquema si no existe ademas de las tablas a utilizar.
+
+
+Dockerfile_APP
+``` sh
+# Dockerfile_APP, utilizar temurin con la versión utilizada para el API rest
 FROM eclipse-temurin:17.0.6_10-jdk-alpine
-ARG JAR_FILE=target/*.jar
+
+# Ajusta la ruta al archivo JAR relativa al contexto de construcción que seria `raiz/` del proyecto
+# ARG JAR_FILE=target/*.jar
+ARG JAR_FILE=App/puntos/target/*.jar
+
+# Copia el archivo JAR al contenedor
 COPY ${JAR_FILE} puntos-1.0.0.jar
+
 ENTRYPOINT ["java","-jar","/puntos-1.0.0.jar"]
 ```
-Creamos la imagen de nuestra API con la imagen eclipse-temurin:17.0.6_10-jdk-alpine para ejecutar nuestro jar puntos-1.0.0.jar
+Creamos la imagen de nuestra API con la imagen eclipse-temurin:17.0.6_10-jdk-alpine para ejecutar nuestro jar puntos-1.0.0.jar.
 
 
 docker-compose.yml
 ``` sh
-version: '2'
+version: '3'
 
-services:
+services:  
   app:
     image: 'puntos:latest'
+    container_name: puntos_app
     build:
-      context: .
-    container_name: app
+      context: ../
+      dockerfile: Docker/Dockerfile_APP
     depends_on:
       - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/PUNTOSW
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=mysecretpassword
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${POSTGRES_DB}
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_JPA_SHOW_SQL=false
     ports:
@@ -445,19 +473,23 @@ services:
           
   db:
     image: 'postgres'
-    container_name: db
+    container_name: puntos_db
+    build:
+      context: .
+      dockerfile: Dockerfile_DB    
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - 5432:5432
 ```
-Enlazamos nuestra APP y la DB, ambos se levantaran en contenedores independientes, ojo aca las contraseñas, nombre de usuario y  claro los puertos
+Enlazamos nuestra APP y la DB, ambos se levantaran en contenedores independientes, ojo aca las contraseñas, nombre de usuario, nombre de base de datos y  claro los puertos
 
 Nos ubicamos con una consola en la raiz de nuestro proyecto ejecutamos,
 
 ``` sh
- docker-compose up
+ docker-compose up 
 ```
 Nos levantara nuestra APP
 
